@@ -12,6 +12,15 @@ return [
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
     'components' => [
+        'user' => [
+            'identityClass' => 'common\models\User',
+            'enableAutoLogin' => true,
+            'identityCookie' => ['name' => '_identity', 'httpOnly' => true, 'domain' => '.task.local'],
+        ],
+        'session' => [
+            // this is the name of the session cookie used for login on the frontend
+            'name' => 'advanced-',
+        ],
         'request' => [
             'csrfParam' => '_csrf-frontend',
         ],
