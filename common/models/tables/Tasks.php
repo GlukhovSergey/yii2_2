@@ -110,5 +110,15 @@ class Tasks extends ActiveRecord
         return $this->hasMany(TaskImages::class, ['task_id' => 'id']);
     }
 
+    public function getTaskChat()
+    {
+        //return $this->hasMany(Chat::class, ['channel' => 'Task_' . 'id']);
+
+        $db = \Yii::$app->db;
+
+        return $db->createCommand("SELECt chat.message, user.username as user FROM chat left join user on chat.user_id = user.id where channel = :id")
+            ->bindValue(':id', 'Task_' . $this -> id)
+            ->queryAll();
+    }
 
 }

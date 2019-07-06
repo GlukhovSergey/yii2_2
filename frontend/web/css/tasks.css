@@ -1,0 +1,9 @@
+.preview-container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.task-container{
+    padding: 1em;
+}

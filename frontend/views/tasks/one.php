@@ -79,4 +79,28 @@ TasksAsset::register($this);
             <p><strong><?=$comment->user->username?></strong>: <?=$comment->comment?></p>
         <?php endforeach;?>
     </div>
+
+    <hr>
+
+    <div class="task-chat">
+        <form action="#" name="chat_form" id="chat_form">
+            <label>
+                <input type="hidden" name="channel" value="<?=$channel?>"/>
+                <input type="hidden" name="user_id" value="<?=$userId?>"/>
+                введите сообщение
+                <input type="text" name="message"/>
+                <input type="submit"/>
+            </label>
+        </form>
+        <hr>
+        <div id="root_chat">
+            <?foreach ($model->taskChat as $chat): ?>
+
+                <p><strong><?=$chat['user']?></strong>: <?=$chat['message']?></p>
+            <?php endforeach;?>
+        </div>
+    </div>
 </div>
+<script>
+    var channel = '<?=$channel?>';
+</script>

@@ -8,6 +8,7 @@ use frontend\models\filters\TasksFilter;
 use frontend\models\forms\TaskAttachmentsAddForm;
 use common\models\tables\TaskComments;
 use common\models\tables\Tasks;
+use common\models\tables\Chat;
 use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
@@ -72,6 +73,7 @@ class TasksController extends Controller
             'taskCommentForm' => new TaskComments(),
             'taskAttachmentForm' => new TaskAttachmentsAddForm(),
             'userId' => Yii::$app->user->id,
+            'channel' => 'Task_' . $id,
         ]);
     }
 

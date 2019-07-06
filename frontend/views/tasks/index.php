@@ -28,8 +28,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
     echo \yii\widgets\ListView::widget([
         //'itemView' => 'preview',
-        'itemView' => function ($model) {return \common\widgets\TaskPreviewWidget::widget(['model' => $model]);},
+        'itemView' => function ($model) {return \frontend\widgets\TaskPreviewWidget::widget(['model' => $model]);},
         'dataProvider' => $dataProvider,
+        'summary' => false,
+        'options' => [
+            'class' => 'preview-container'
+        ]
 //        'viewParams' => [
 //            'hide' => 'true'
 //        ]
