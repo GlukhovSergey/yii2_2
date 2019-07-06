@@ -4,6 +4,7 @@ use \yii\helpers\Url;
 use \yii\helpers\Html;
 use \yii\helpers\ArrayHelper;
 use app\assets\TasksAsset;
+use yii\widgets\Pjax;
 
 TasksAsset::register($this);
 
@@ -44,6 +45,7 @@ TasksAsset::register($this);
     </div>
 </div>
 <div class="attachments">
+    <?php Pjax::begin(['enablePushState' => false])?>
     <h3>Вложения</h3>
     <?php if(Yii::$app->user->can('TaskUpdate')):?>
         <?php $form = ActiveForm::begin([
@@ -63,7 +65,9 @@ TasksAsset::register($this);
             </a>
         <?php endforeach;?>
     </div>
+    <?php Pjax::end()?>
 
+    <?php Pjax::begin(['enablePushState' => false])?>
     <h3>Комментарии</h3>
     <?php if(Yii::$app->user->can('TaskUpdate')):?>
         <?php $form = ActiveForm::begin(['action' => Url::to(['tasks/add-comment'])]);?>
@@ -79,9 +83,11 @@ TasksAsset::register($this);
             <p><strong><?=$comment->user->username?></strong>: <?=$comment->comment?></p>
         <?php endforeach;?>
     </div>
+    <?php Pjax::end()?>
 
     <hr>
 
+    <?php Pjax::begin(['enablePushState' => false])?>
     <div class="task-chat">
         <form action="#" name="chat_form" id="chat_form">
             <label>
@@ -100,6 +106,7 @@ TasksAsset::register($this);
             <?php endforeach;?>
         </div>
     </div>
+    <?php Pjax::end()?>
 </div>
 <script>
     var channel = '<?=$channel?>';
