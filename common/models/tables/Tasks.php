@@ -17,10 +17,12 @@ use yii\web\UploadedFile;
  * @property string $description
  * @property int $creator_id
  * @property int $responsible_id
+ * @property int $project_id
  * @property string $deadline
  * @property int $status_id
  *
  * @property $status
+ * @property $project
  */
 class Tasks extends ActiveRecord
 {
@@ -59,7 +61,7 @@ class Tasks extends ActiveRecord
     public function rules()
     {
         return [
-            [['name'], 'required'],
+            [['name', 'project_id'], 'required'],
             [['creator_id', 'responsible_id', 'status_id'], 'integer'],
             [['deadline'], 'safe'],
             [['name'], 'string', 'max' => 50],
@@ -80,6 +82,7 @@ class Tasks extends ActiveRecord
             'description' => 'Description',
             'creator_id' => 'Creator ID',
             'responsible_id' => 'Responsible ID',
+            'project_id' => 'Project',
             'deadline' => 'Deadline',
             'status_id' => 'Status ID',
         ];
@@ -98,6 +101,11 @@ class Tasks extends ActiveRecord
     public function getResponsible()
     {
         return $this->hasOne(User::class, ['id' => 'responsible_id']);
+    }
+
+    public function getProject()
+    {
+        return $this->hasOne(Projects::class, ['id' => 'project_id']);
     }
 
     public function getTaskComments()

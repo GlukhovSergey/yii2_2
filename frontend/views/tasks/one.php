@@ -16,6 +16,9 @@ TasksAsset::register($this);
     <div class="task-main">
         <?php $form = ActiveForm::begin(['action' => Url::to(['tasks/save', 'id' => $model->id])]); ?>
         <?= $form->field($model, 'name')->textInput(); ?>
+        <?= $form->field($model, 'project_id')
+            ->dropDownList(ArrayHelper::map(\common\models\tables\Projects::find()->all(), 'id', 'name'), [
+                'prompt' => 'Выбрать',]) ?>
         <div class="row">
             <div class="col-lg-4">
                 <?= $form->field($model, 'status_id')

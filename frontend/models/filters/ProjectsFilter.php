@@ -4,12 +4,12 @@ namespace frontend\models\filters;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\tables\Tasks;
+use common\models\tables\Projects;
 
 /**
- * TasksFilter represents the model behind the search form of `app\models\tables\Tasks`.
+ * ProjectsFilter represents the model behind the search form of `common\models\tables\Projects`.
  */
-class TasksFilter extends Tasks
+class ProjectsFilter extends Projects
 {
     /**
      * {@inheritdoc}
@@ -17,8 +17,8 @@ class TasksFilter extends Tasks
     public function rules()
     {
         return [
-            [['id', 'creator_id', 'responsible_id', 'status_id', 'project_id'], 'integer'],
-            [['name', 'description', 'deadline'], 'safe'],
+            [['id'], 'integer'],
+            [['name', 'description', 'created_at', 'updated_at'], 'safe'],
         ];
     }
 
@@ -32,7 +32,7 @@ class TasksFilter extends Tasks
     }
 
     /**
-     * Creates data provider instance with search query applied
+     * Created data provider instance with search query applied
      *
      * @param array $params
      *
@@ -40,7 +40,7 @@ class TasksFilter extends Tasks
      */
     public function search($params)
     {
-        $query = Tasks::find();
+        $query = Projects::find();
 
         // add conditions that should always apply here
 
@@ -59,19 +59,12 @@ class TasksFilter extends Tasks
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'creator_id' => $this->creator_id,
-            'responsible_id' => $this->responsible_id,
-            'deadline' => $this->deadline,
-            'status_id' => $this->status_id,
-            'project_id' => $this->project_id,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'description', $this->description]);
-
-//        \Yii::$app->db->cache(function () use ($dataProvider) {
-//            return $dataProvider->prepare();
-//        });
 
         return $dataProvider;
     }

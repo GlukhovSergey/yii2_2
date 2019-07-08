@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use app\assets\TasksAsset;
+use \yii\widgets\ListView;
+use yii\widgets\Pjax;
 
 TasksAsset::register($this);
 
@@ -16,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <?php if(Yii::$app->user->can('TaskCreate')):?>
+    <?php if (Yii::$app->user->can('TaskCreate')): ?>
         <p>
             <?= Html::a('Новая задача', ['create'], ['class' => 'btn btn-success']) ?>
         </p>
@@ -26,9 +28,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?
 
-    echo \yii\widgets\ListView::widget([
+    echo ListView::widget([
         //'itemView' => 'preview',
-        'itemView' => function ($model) {return \frontend\widgets\TaskPreviewWidget::widget(['model' => $model]);},
+        'itemView' => function ($model) {
+            return \frontend\widgets\TaskPreviewWidget::widget(['model' => $model]);
+        },
         'dataProvider' => $dataProvider,
         'summary' => false,
         'options' => [
@@ -39,26 +43,26 @@ $this->params['breadcrumbs'][] = $this->title;
 //        ]
     ]);
 
-//    echo \app\widgets\MyWidget::widget([
-//        'label' => "Пожоще довай"
-//    ]);
-//
-//    echo GridView::widget([
-//        'dataProvider' => $dataProvider,
-//        'filterModel' => $searchModel,
-//        'columns' => [
-//            ['class' => 'yii\grid\SerialColumn'],
-//            'id',
-//            'name',
-//            'description',
-//            'creator_id',
-//            'responsible_id',
-//            //'deadline',
-//            //'status_id',
-//
-//            ['class' => 'yii\grid\ActionColumn'],
-//        ],
-//    ]);
+    // echo \app\widgets\MyWidget::widget([
+    // 'label' => "Пожоще довай"
+    // ]);
+    //
+    // echo GridView::widget([
+    // 'dataProvider' => $dataProvider,
+    // 'filterModel' => $searchModel,
+    // 'columns' => [
+    // ['class' => 'yii\grid\SerialColumn'],
+    // 'id',
+    // 'name',
+    // 'description',
+    // 'creator_id',
+    // 'responsible_id',
+    // //'deadline',
+    // //'status_id',
+    //
+    // ['class' => 'yii\grid\ActionColumn'],
+    // ],
+    // ]);
     ?>
 
 

@@ -12,6 +12,7 @@ use yii\helpers\Url;
         <div class="panel panel-default" style="width: 40rem;">
             <h5 class="panel-heading">#<?= $model->id ?> <?= $model->name ?></h5>
             <ul class="list-group">
+                <li class="list-group-item">Проект: <?= $model->project->name ?></li>
                 <li class="list-group-item">Ответственный: <?= $model->responsible->username ?></li>
                 <li class="list-group-item">Срок выполнения: <?= $model->deadline ?></li>
             </ul>
