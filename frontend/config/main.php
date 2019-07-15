@@ -11,6 +11,11 @@ return [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
+    'modules' => [
+        'v1' => [
+            'class' => 'frontend\modules\v1\Module',
+        ],
+    ],
     'components' => [
         'user' => [
             'identityClass' => 'common\models\User',
@@ -23,6 +28,9 @@ return [
         ],
         'request' => [
             'csrfParam' => '_csrf-frontend',
+            'parsers' => [
+                'application/json' => \yii\web\JsonParser::class
+            ]
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
@@ -36,17 +44,18 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-//        'urlManager' => [
-//            'enablePrettyUrl' => true,
-//            'showScriptName' => false,
-//            'enableStrictParsing' => false,
-//            'rules' => [
-//                'tasks' => 'tasks/index',
-//                'task/<id>' => 'tasks/view',
-//                'task/<id>/save' => 'tasks/save',
-//                'tasks/add-comment' => 'tasks/add-comment',
-//            ],
-//        ],
+        'urlManager' => [
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+            'enableStrictParsing' => false,
+            'rules' => [
+                ['class' => \yii\rest\UrlRule::class, 'controller' => ['v1/task']],
+                'tasks' => 'tasks/index',
+                'task/<id>' => 'tasks/view',
+                'task/<id>/save' => 'tasks/save',
+                'tasks/add-comment' => 'tasks/add-comment',
+            ],
+        ],
     ],
     'params' => $params,
 ];

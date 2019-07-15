@@ -20,10 +20,6 @@ class TelegramController extends Controller
     {
         parent::init();
         $this->bot = \Yii::$app->bot;
-        $this->bot->setCurlOption(CURLOPT_TIMEOUT, 20);
-        $this->bot->setCurlOption(CURLOPT_CONNECTTIMEOUT, 10);
-        $this->bot->setCurlOption(CURLOPT_HTTPHEADER, ['Expect:']);
-
     }
 
     public function actionIndex()
@@ -82,13 +78,7 @@ class TelegramController extends Controller
                 $project->name = $project_name;
                 $project->save();
 
-                /** @var Component $bot */
-                $bot = \Yii::$app->bot;
-                //TODO отправить сообщения всем подписчикам
-                //в цикле для каждого подписчика
-                $telegram_user_id = '';
-
-                $bot->sendMessage($telegram_user_id, 'Добавлен новый проект: ' . $project_name);
+                $response = 'Добавлен новый проект: ' . $project_name;
 
                 break;
             case "/sp_create":
@@ -97,8 +87,12 @@ class TelegramController extends Controller
                 //TODO проверить что этого подписчика еще нет в таблице подписчиков
 
                 $subscribe = new TelegramSubscriptions();
-                $subscribe->telegram_user_id = //вытащить из $update id юзера которому нужно отправлять сообщения
-                $subscribe->save();
+                $subscribe->telegram_user_id = $message->getFrom()->getId();
+                if($subscribe->save()){
+                    $response = "Вы подписаны на оповещения о создании проектов";
+                }else{
+                    $response = "error!!!";
+                }
 
                 break;
         }
